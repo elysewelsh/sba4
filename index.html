@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="app.js" defer></script>
+</head>
+<body>
+    <input type="text" id="taskName" placeholder="Task Name">
+    <input type="text" id="category" placeholder="Task Category">
+    <input type="text" id="status" placeholder="Task Status">
+    <!-- <p>Task Status:</p>
+    <input type="radio" id="not-started" name="task-status" value="Not Started">
+        <label for="not-started">Not Started</label><br>
+    <input type="radio" id="in-progress" name="task-status" value="In Progress">
+        <label for="in-progress">In Progress</label><br>
+    <input type="radio" id="completed" name="task-status" value="Completed">
+        <label for="completed">Completed</label><br> -->
+    Task Deadline: <input type="date" id="deadline">
+    <button id="addTask_btn">Add Task</button>
+    
+    <ul id="taskList">
+    </ul>
+    <input type="text" id="search" placeholder="Search Term">
+    <button id="catSearch_btn">Search by Category</button>
+    <button id="statSearch_btn">Search by Status</button>
+    <p><button id="clear_btn">Clear Filter</button></p>
+</body>
+</html>

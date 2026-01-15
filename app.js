@@ -1,8 +1,6 @@
-// put it in local storage
 // css flex
 
-
-const tasks = [];
+let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 const filteredTasks = [];
 const taskNameInput = document.getElementById("taskName");
 const categoryInput = document.getElementById("category");
@@ -15,8 +13,10 @@ const statSearch_btn = document.getElementById("statSearch_btn");
 const searchInput = document.getElementById("search");
 const clearFilter_btn = document.getElementById("clear_btn");
 const currentDate = Date.parse(new Date());
-
 let dateElement = document.getElementById("deadline");   
+
+displayArray(tasks);
+
 dateElement.addEventListener("change", () => {
     const deadlineFormat = (Date.parse(dateElement.value));
     return deadlineFormat;
@@ -30,6 +30,7 @@ addTask_btn.addEventListener("click",() => {
         taskStatus : statusInput.value,
     };
     tasks.push(task);
+    storeTasks ();
     displayArray(tasks);
     taskNameInput.value = "";
     categoryInput.value = "";
@@ -62,6 +63,7 @@ for(let i = 0; i < array.length; i++) {
         editBtn.addEventListener("click", function () {
             let index = this.getAttribute('data-item-index');
             array[index].taskStatus = prompt("Updated Status: ");
+            storeTasks ();
             displayArray(array);
             });
         taskList.appendChild(taskItem);
@@ -106,5 +108,9 @@ function overwriteStatus(task) {
         else {
         return task.taskStatus
         };
+};
+
+function storeTasks () {
+    localStorage.setItem('tasks',JSON.stringify(tasks));
 };
 

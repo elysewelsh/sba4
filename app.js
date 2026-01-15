@@ -1,3 +1,7 @@
+// put it in local storage
+// css flex
+
+
 const tasks = [];
 const filteredTasks = [];
 const taskNameInput = document.getElementById("taskName");
@@ -10,6 +14,13 @@ const catSearch_btn = document.getElementById("catSearch_btn");
 const statSearch_btn = document.getElementById("statSearch_btn");
 const searchInput = document.getElementById("search");
 const clearFilter_btn = document.getElementById("clear_btn");
+const currentDate = Date.parse(new Date());
+
+let dateElement = document.getElementById("deadline");   
+dateElement.addEventListener("change", () => {
+    const deadlineFormat = (Date.parse(dateElement.value));
+    return deadlineFormat;
+});
 
 addTask_btn.addEventListener("click",() => {
     const task = {
@@ -28,7 +39,6 @@ addTask_btn.addEventListener("click",() => {
 
 function displayArray (array) {
 taskList.innerHTML = "<h2>Tasks</h2>";
-console.log(array);
 for(let i = 0; i < array.length; i++) {
         const taskItem = document.createElement("li");
         taskItem.classList.add("task-item");
@@ -39,10 +49,10 @@ for(let i = 0; i < array.length; i++) {
         category.innerText = array[i].category;
         taskItem.appendChild(category);
         const taskStatus = document.createElement("span");
-        taskStatus.innerText = array[i].taskStatus;
+        taskStatus.innerText = overwriteStatus(array[i]);
         taskItem.appendChild(taskStatus);
         const deadline = document.createElement("span");
-        deadline.innerText = array[i].deadline;
+        deadline.innerText =array[i].deadline;
         taskItem.appendChild(deadline);
         let editBtn = document.createElement("button");
         editBtn.innerText = "update status";
@@ -57,12 +67,6 @@ for(let i = 0; i < array.length; i++) {
         taskList.appendChild(taskItem);
     }
 }
-
-
-
-
-
-
 
 catSearch_btn.addEventListener("click",() => {
     filterItems("category",searchInput.value);
@@ -82,29 +86,25 @@ clearFilter_btn.addEventListener("click",() => {
 function filterItems (property, searchTerm) {
     filteredTasks.length = 0;
     const results = tasks.filter(
-        function (el) {
-        return el[property].toLowerCase().includes(searchTerm.toLowerCase());
+        function (e) {
+        return e[property].toLowerCase().includes(searchTerm.toLowerCase());
         }
     );
     filteredTasks.push(...results);
 }
 
-// let dateElement = document.getElementById("deadline");
-// console.log(dateElement.value);
-
-// dateElement.addEventListener("change", () => {
-//     console.log(dateElement.value);
-//     console.log(Date.parse(dateElement.value));
-//     localStorage.setItem("deadline", Date.parse(dateElement.value));
-//     console.log(localStorage);
-// })
-
-// console.log(localStorage.getItem("deadline"));
-
-// if(Date.valueOf() < Date.valueOf()) {
-//     console.log("Date one is LATER!")
-// } else {
-//     console.log("Date one is EARLIER!");
-// }
-
+function overwriteStatus(task) {
+    const deadlineFormat = (Date.parse(task.deadline));
+    console.log(task.taskStatus, deadlineFormat,currentDate);
+    if ((task.taskStatus.toLowerCase()) === "completed") {
+        return task.taskStatus
+    }
+    if (deadlineFormat < currentDate) {
+        task.taskStatus = "Overdue";
+        return "Overdue";
+        }
+        else {
+        return task.taskStatus
+        };
+};
 

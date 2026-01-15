@@ -28,6 +28,7 @@ addTask_btn.addEventListener("click",() => {
 
 function displayArray (array) {
 taskList.innerHTML = "<h2>Tasks</h2>";
+console.log(array);
 for(let i = 0; i < array.length; i++) {
         const taskItem = document.createElement("li");
         taskItem.classList.add("task-item");
@@ -43,9 +44,25 @@ for(let i = 0; i < array.length; i++) {
         const deadline = document.createElement("span");
         deadline.innerText = array[i].deadline;
         taskItem.appendChild(deadline);
+        let editBtn = document.createElement("button");
+        editBtn.innerText = "update status";
+        taskItem.appendChild(editBtn);
+        editBtn.classList.add("edit-btn");
+        editBtn.setAttribute('data-item-index',i);
+        editBtn.addEventListener("click", function () {
+            let index = this.getAttribute('data-item-index');
+            array[index].taskStatus = prompt("Updated Status: ");
+            displayArray(array);
+            });
         taskList.appendChild(taskItem);
     }
 }
+
+
+
+
+
+
 
 catSearch_btn.addEventListener("click",() => {
     filterItems("category",searchInput.value);

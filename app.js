@@ -109,13 +109,21 @@ for(let i = 0; i < array.length; i++) {
         editBtn.setAttribute('data-item-index',i);
         editBtn.addEventListener("click", function () {
             let index = this.getAttribute('data-item-index');
-            array[index].taskStatus = prompt("Updated Status: ");
+            let currentStatus = array[index].taskStatus;
+            let newStatus = prompt("Updated Status: ");
+            if ((currentStatus.toLowerCase() === 'overdue') && (newStatus.toLowerCase() !== "completed")) {
+                alert("Overdue tasks can only be marked Completed.");
+            }
+            else {
+                array[index].taskStatus = newStatus;
+            }
             storeTasks();
             displayArray(array);
-            });
+        });
+
         taskList.appendChild(taskItem);
     }
-}
+};
 
 // This is the event listener for the category search button.
 // It's the same logic as the Status search button, except that it passes category as the argument to the filterItems function.

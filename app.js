@@ -13,8 +13,10 @@ const searchInput = document.getElementById("search");
 const clearFilter_btn = document.getElementById("clear_btn");
 // get current date in user time zone
 const currentDate = Date.parse(new Date());
+const dateOffsetMS = ((new Date().getTimezoneOffset()) * 60000);
 // format deadline to use in date comparison function
 let dateElement = document.getElementById("deadline");   
+
 
 
 // load tasks from localStorage immediately upon loading
@@ -164,17 +166,17 @@ function filterItems (property, searchTerm) {
 // the status is updated to "Overdue". Otherwise, it remains the same.
 function overwriteStatus(task) {
     const deadlineFormat = (Date.parse(task.deadline));
-    console.log(task.taskStatus, deadlineFormat,currentDate);
+    // console.log("deadlineFormat: ", deadlineFormat);
     if ((task.taskStatus.toLowerCase()) === "completed") {
         return task.taskStatus
     }
-    if (deadlineFormat < currentDate) {
+    if (deadlineFormat < (currentDate - dateOffsetMS)) {
         task.taskStatus = "Overdue";
         return "Overdue";
         }
         else {
         return task.taskStatus
-        };
+        }; 
 };
 
 // This function stores tasks in localStorage for later retrival.
@@ -182,3 +184,8 @@ function storeTasks () {
     localStorage.setItem('tasks',JSON.stringify(tasks));
 };
 
+// DATETIME VARIABLE VISIBILITY
+console.log("dateOffsetMS: ", dateOffsetMS);
+console.log("currentDate: ", currentDate);
+console.log("currentDate - dateOffsetMS: ", (currentDate - dateOffsetMS));
+// deadlineFormat found within relevant function above.

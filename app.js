@@ -1,5 +1,3 @@
-// css flex
-
 let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 const filteredTasks = [];
 const taskNameInput = document.getElementById("taskName");
@@ -40,6 +38,24 @@ addTask_btn.addEventListener("click",() => {
 
 function displayArray (array) {
 taskList.innerHTML = "<h2>Tasks</h2>";
+const taskHeader = document.createElement("li");
+taskHeader.classList.add("table-header");
+const taskHeaderName = document.createElement("span");
+taskHeaderName.innerText = "Task Name";
+taskHeader.appendChild(taskHeaderName);
+const taskHeaderCategory = document.createElement("span");
+taskHeaderCategory.innerText = "Category";
+taskHeader.appendChild(taskHeaderCategory);
+const taskHeaderStatus = document.createElement("span");
+taskHeaderStatus.innerText = "Task Status";
+taskHeader.appendChild(taskHeaderStatus);
+const taskHeaderDeadline = document.createElement("span");
+taskHeaderDeadline.innerText = "Deadline";
+taskHeader.appendChild(taskHeaderDeadline);
+const taskHeaderEdit = document.createElement("span");
+taskHeaderEdit.innerText = "Edit";
+taskHeader.appendChild(taskHeaderEdit);
+taskList.appendChild(taskHeader);
 for(let i = 0; i < array.length; i++) {
         const taskItem = document.createElement("li");
         taskItem.classList.add("task-item");

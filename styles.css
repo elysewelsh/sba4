@@ -1,0 +1,27 @@
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+ 
+.task-item span {
+  flex: 1;
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.table-header span {
+  flex: 1;
+}
+ 
+.task-item button {
+  margin-left: 10px;
+}
